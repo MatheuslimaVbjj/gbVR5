@@ -34,7 +34,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
+body{overflow-x:hidden;
   margin:0;
   font-family:'Outfit',system-ui,-apple-system,sans-serif;
   color:var(--text);
@@ -264,6 +264,53 @@ p{margin:0}
   .floating-wa small{display:none}
   .hero-card strong{font-size:2rem}
 }
+
+@media (max-width: 980px){
+  .brand-logo{width:210px!important}
+  .nav-shell,.nav-shell{min-height:78px!important}
+  .hero,.hero{padding-top:104px!important}
+}
+@media (max-width: 860px){
+  .brand{max-width:calc(100% - 64px)!important}
+  .brand-logo{width:min(180px, 46vw)!important;max-width:100%!important}
+  .site-header{background:rgba(4,10,18,.88)!important;backdrop-filter:blur(16px)!important}
+  .mobile-panel{top:76px!important;left:12px!important;right:12px!important;padding:16px!important;border-radius:20px!important}
+  .mobile-panel a{padding:12px 4px!important}
+  .nav-shell{gap:12px!important}
+}
+@media (max-width: 700px){
+  html,body{overflow-x:hidden!important}
+  .container,.nav-shell{width:min(100% - 20px, 1180px)!important}
+  .brand-logo{width:min(165px, 44vw)!important}
+  .burger{width:44px!important;height:44px!important;border-radius:12px!important}
+  .hero,.hero{padding-top:96px!important;min-height:auto!important}
+  .hero-inner,.hero-grid,.intro-grid,.story-grid,.contact-grid,.two-col,.sim-layout,.footer-grid{grid-template-columns:1fr!important}
+  .hero-copy,.hero-copy p,.lead{max-width:100%!important}
+  .hero-actions,.cta-row{display:grid!important;grid-template-columns:1fr!important;gap:10px!important}
+  .hero-actions .btn,.cta-row .btn,.cta-band .btn,.btn{width:100%!important}
+  .hero-card,.hero-panel,.glass,.sim-card,.result-box,.choice-card,.contact-box,.info-box,.path-card,.service,.course-card,.destination-card,.quote,.tip-card,.progress-card{padding:20px!important;border-radius:22px!important}
+  .hero-card strong,.hero-panel h3{font-size:clamp(1.9rem,9vw,2.5rem)!important}
+  .hero h1,.hero-copy h1,h1{font-size:clamp(2.45rem,14vw,4.1rem)!important;line-height:.92!important}
+  h2,.section-head h2{font-size:clamp(2rem,10vw,3rem)!important;line-height:.95!important}
+  .mini-grid,.cards4,.cards3,.proof-strip,.testimonials,.faq-list,.choice-wrap,.how-steps,.tips-grid,.sim-grid,.form-grid,.cta-grid,.choice-grid,.services-grid,.destination-grid,.quotes-grid,.path-grid,.course-grid,.steps-grid{grid-template-columns:1fr!important}
+  .tabs{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .tab{width:100%!important;text-align:center!important;padding:12px 10px!important;font-size:.95rem!important}
+  .field label{font-size:1rem!important}
+  .field select,.field input{padding:13px 14px!important;min-height:52px!important;font-size:16px!important}
+  .result-price{font-size:clamp(2.2rem,12vw,3.2rem)!important}
+  .kicker,.eyebrow{font-size:11px!important;letter-spacing:2px!important;gap:10px!important}
+  .kicker:before,.eyebrow:before{width:34px!important}
+  .dest-card{padding:16px!important}
+  .whatsapp-float,.floating-wa{right:12px!important;bottom:12px!important;min-height:50px!important;padding:0 14px!important;font-size:15px!important;border-radius:999px!important}
+  .floating-wa small,.whatsapp-float small{display:none!important}
+}
+@media (max-width: 420px){
+  .brand-logo{width:150px!important}
+  .hero h1,.hero-copy h1,h1{font-size:clamp(2.2rem,13vw,3.3rem)!important}
+  .tabs{grid-template-columns:1fr!important}
+  .kicker,.eyebrow{font-size:10px!important;letter-spacing:1.6px!important}
+}
+
 </style>
 </head>
 <body>
