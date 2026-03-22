@@ -195,6 +195,49 @@ p{margin:0}
   color:#fff;
 }
 
+
+.cta-grid,.sim-grid{display:grid;gap:20px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.cta-card,.sim-card,.result-card{
+  padding:28px;border-radius:28px;
+  background:linear-gradient(180deg, rgba(11,22,35,.76), rgba(7,14,24,.92));
+  border:1px solid rgba(255,255,255,.08);backdrop-filter:blur(16px);box-shadow:var(--shadow);
+}
+.cta-card h3,.sim-card h3,.result-card h3{margin-bottom:10px}
+.cta-card .tag{
+  display:inline-flex;padding:8px 12px;border-radius:999px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:var(--gold-soft);font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px
+}
+.cta-card .btn-row{margin-top:18px}
+.cta-card .btn,.sim-card .btn,.result-card .btn{min-height:50px}
+.sim-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;align-items:start}
+.form-grid{display:grid;gap:16px}
+.field{display:grid;gap:8px}
+.field label{font-size:.88rem;color:rgba(255,255,255,.75)}
+.select, .field select{
+  width:100%;min-height:54px;padding:0 16px;border-radius:16px;border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.04);color:#fff;font:inherit;outline:none
+}
+.field select option{color:#000}
+.choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.choice{
+  display:flex;align-items:center;gap:10px;padding:14px 14px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.03);cursor:pointer;
+  transition:border-color .24s var(--ease), transform .24s var(--ease), background .24s var(--ease)
+}
+.choice input{accent-color:var(--gold)}
+.choice.active,.choice:hover{border-color:rgba(199,154,74,.34);background:rgba(199,154,74,.08);transform:translateY(-2px)}
+.result-card ul{display:grid;gap:10px;padding-left:18px;color:var(--muted);line-height:1.7}
+.result-highlight{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(199,154,74,.1);border:1px solid rgba(199,154,74,.22);color:var(--gold-soft);margin:14px 0 18px}
+.result-box{display:grid;gap:14px;margin-top:10px}
+.small-note{font-size:.88rem;color:rgba(255,255,255,.62);line-height:1.65}
+@media (max-width: 1080px){
+  .sim-wrap{grid-template-columns:1fr}
+}
+@media (max-width: 700px){
+  .cta-grid,.sim-grid,.choice-grid{grid-template-columns:1fr}
+}
+
 @keyframes loading{100%{transform:translateX(100%)}}
 @keyframes floatLogo{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @media (max-width: 1080px){
@@ -289,12 +332,12 @@ p{margin:0}
 
     <div class="hero-inner">
       <div class="hero-copy reveal">
-        <span class="kicker">Passagens aéreas • Intercâmbio • Imigração • Viagens internacionais</span>
-        <h1 class="hero-title">Seu futuro não tem fronteiras.</h1>
-        <p class="lead hero-lead">A Global Travel Intercâmbios vende passagens aéreas com busca das melhores tarifas para o seu destino e também cuida de intercâmbio, viagens internacionais, orientação migratória e planejamento completo para estudar, viajar, morar ou trabalhar fora com mais segurança — inclusive com foco em Portugal e Lisboa para quem quer construir uma trajetória acadêmica internacional.</p>
+        <span class="kicker" id="hero-kicker">Passagens aéreas • Intercâmbio • Imigração • Viagens internacionais</span>
+        <h1 class="hero-title" id="hero-title">Seu futuro não tem fronteiras.</h1>
+        <p class="lead hero-lead" id="hero-lead">A Global Travel Intercâmbios vende passagens aéreas com busca das melhores tarifas para o seu destino e também cuida de intercâmbio, viagens internacionais, orientação migratória e planejamento completo para estudar, viajar, morar ou trabalhar fora com mais segurança — inclusive com foco em Portugal e Lisboa para quem quer construir uma trajetória acadêmica internacional.</p>
         <div class="btn-row">
-          <a class="btn btn-primary" href="https://wa.me/351910346159" target="_blank" rel="noopener">Falar no WhatsApp</a>
-          <a class="btn btn-secondary" href="#servicos">Conhecer serviços</a>
+          <a class="btn btn-primary" id="hero-primary-btn" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20ou%20viagem%20internacional." target="_blank" rel="noopener">Falar no WhatsApp</a>
+          <a class="btn btn-secondary" id="hero-secondary-btn" href="#servicos">Conhecer serviços</a>
         </div>
         <div class="hero-dots" aria-label="Trocar vídeo">
           <button class="active" aria-label="Vídeo 1"></button>
@@ -305,12 +348,12 @@ p{margin:0}
       </div>
 
       <aside class="hero-card card reveal">
-        <strong>Passagens aéreas com ótimos preços, intercâmbio e viagens internacionais no mesmo lugar.</strong>
-        <p>Da emissão da sua passagem com foco em melhores tarifas até o planejamento do curso, da viagem em família ao processo de mudança de país, a Global Travel organiza cada etapa com clareza, estratégia e suporte próximo.</p>
+        <strong id="hero-card-title">Passagens aéreas com ótimos preços, intercâmbio e viagens internacionais no mesmo lugar.</strong>
+        <p id="hero-card-copy">Da emissão da sua passagem com foco em melhores tarifas até o planejamento do curso, da viagem em família ao processo de mudança de país, a Global Travel organiza cada etapa com clareza, estratégia e suporte próximo.</p>
         <div class="mini-stats">
-          <div class="mini-card"><strong>Passagens</strong><span>Emissão com atenção a rotas, conexões e melhores tarifas.</span></div>
-          <div class="mini-card"><strong>Estudar</strong><span>Intercâmbio e cursos com planejamento mais seguro.</span></div>
-          <div class="mini-card"><strong>Migrar</strong><span>Orientação para quem quer construir uma nova fase fora.</span></div>
+          <div class="mini-card"><strong id="mini-1-title">Passagens</strong><span id="mini-1-copy">Emissão com atenção a rotas, conexões e melhores tarifas.</span></div>
+          <div class="mini-card"><strong id="mini-2-title">Estudar</strong><span id="mini-2-copy">Intercâmbio e cursos com planejamento mais seguro.</span></div>
+          <div class="mini-card"><strong id="mini-3-title">Migrar</strong><span id="mini-3-copy">Orientação para quem quer construir uma nova fase fora.</span></div>
         </div>
       </aside>
     </div>
@@ -334,6 +377,53 @@ p{margin:0}
         <div class="info-box"><h3>Irlanda</h3><p class="copy" style="margin-top:12px">Destino forte para intercâmbio, experiência cultural e projetos de médio prazo.</p></div>
         <div class="info-box"><h3>Estados Unidos</h3><p class="copy" style="margin-top:12px">Experiências acadêmicas e viagens de alto impacto para quem quer ampliar horizontes.</p></div>
         <div class="info-box"><h3>Mais soluções</h3><p class="copy" style="margin-top:12px">Também trabalhamos com outros roteiros, cursos e caminhos personalizados conforme o seu perfil.</p></div>
+      </div>
+    </div>
+  
+  <section class="section tight" id="ctas-inteligentes">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Atalhos inteligentes</span>
+        <h2>Escolha um cenário pronto e fale com a gente já com o pedido certo.</h2>
+        <p class="copy">Em vez de um botão genérico, cada caminho já leva uma mensagem pronta para o WhatsApp. Isso deixa o atendimento mais rápido e o cliente chega com objetivo claro.</p>
+      </div>
+      <div class="cta-grid">
+        <article class="cta-card reveal">
+          <span class="tag">Turismo internacional</span>
+          <h3>Quero um pacote Disney em família</h3>
+          <p class="copy">Ideal para quem quer montar passagem, hotel e planejamento de viagem para Disney ou Paris com família e crianças.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20montar%20um%20pacote%20Disney%20ou%20Paris%20em%20fam%C3%ADlia%20e%20gostaria%20de%20atendimento.">Montar meu pacote</a>
+            <a class="btn btn-secondary" href="#simulador">Simular antes</a>
+          </div>
+        </article>
+        <article class="cta-card reveal">
+          <span class="tag">Intercâmbio</span>
+          <h3>Quero estudar em Lisboa</h3>
+          <p class="copy">Perfeito para quem quer intercâmbio, cursos e apoio para viver uma trajetória acadêmica em Portugal com mais clareza.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20entender%20op%C3%A7%C3%B5es%20de%20interc%C3%A2mbio%20e%20cursos%20em%20Lisboa.">Quero estudar em Lisboa</a>
+            <a class="btn btn-secondary" href="nossos-cursos.html">Ver cursos</a>
+          </div>
+        </article>
+        <article class="cta-card reveal">
+          <span class="tag">Imigração</span>
+          <h3>Quero planejar morar fora</h3>
+          <p class="copy">Para quem quer entender caminhos, documentação, orçamento e próximos passos para morar ou trabalhar fora.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20planejar%20morar%20fora%20e%20preciso%20de%20orienta%C3%A7%C3%A3o.">Quero ajuda para imigrar</a>
+            <a class="btn btn-secondary" href="trabalhar-morar-fora.html">Explorar opções</a>
+          </div>
+        </article>
+        <article class="cta-card reveal">
+          <span class="tag">Passagens aéreas</span>
+          <h3>Quero cotar minha passagem com as melhores tarifas</h3>
+          <p class="copy">Atendimento focado em rota, conexões, destino e melhor custo-benefício para viagem internacional, estudo ou mudança.</p>
+          <div class="btn-row">
+            <a class="btn btn-primary" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20cotar%20uma%20passagem%20a%C3%A9rea%20internacional%20com%20as%20melhores%20tarifas.">Cotar passagem</a>
+            <a class="btn btn-secondary" href="#contato">Atendimento humano</a>
+          </div>
+        </article>
       </div>
     </div>
   </section>
@@ -405,6 +495,76 @@ p{margin:0}
     </div>
   </section>
 
+
+  <section class="section" id="simulador">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Simulador</span>
+        <h2>Planeje sua jornada internacional em menos de um minuto.</h2>
+        <p class="copy">Um exemplo de ferramenta comercial para o site: a pessoa escolhe o objetivo, destino, faixa de orçamento e prazo. O resultado já orienta a conversa e envia um briefing pronto para o WhatsApp.</p>
+      </div>
+      <div class="sim-wrap">
+        <div class="sim-card reveal">
+          <h3>Monte seu perfil</h3>
+          <div class="form-grid">
+            <div class="field">
+              <label>Qual é o seu objetivo?</label>
+              <div class="choice-grid" id="goal-choices">
+                <label class="choice active"><input type="radio" name="goal" value="estudar" checked> Estudar</label>
+                <label class="choice"><input type="radio" name="goal" value="viajar"> Viajar</label>
+                <label class="choice"><input type="radio" name="goal" value="morar"> Morar fora</label>
+              </div>
+            </div>
+            <div class="field">
+              <label for="destino">Destino de maior interesse</label>
+              <select id="destino">
+                <option value="portugal">Portugal / Lisboa</option>
+                <option value="irlanda">Irlanda</option>
+                <option value="eua">Estados Unidos</option>
+                <option value="disney">Disney / Paris</option>
+                <option value="neve">Viagem de neve</option>
+                <option value="outro">Outro destino</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="orcamento">Faixa de orçamento</label>
+              <select id="orcamento">
+                <option value="ate2">Até €2.000</option>
+                <option value="2a5">€2.000 a €5.000</option>
+                <option value="5a10">€5.000 a €10.000</option>
+                <option value="acima10">Acima de €10.000</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="prazo">Quando pretende começar?</label>
+              <select id="prazo">
+                <option value="agora">Nos próximos 30 dias</option>
+                <option value="90">Nos próximos 3 meses</option>
+                <option value="180">Nos próximos 6 meses</option>
+                <option value="planejando">Ainda estou planejando</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-card reveal">
+          <h3>Sugestão inicial</h3>
+          <div class="result-highlight" id="result-badge">Perfil sugerido: Intercâmbio em Lisboa</div>
+          <p class="copy" id="result-copy">Para quem quer estudar fora com mais segurança, Portugal aparece como caminho forte por idioma, adaptação e organização do projeto acadêmico.</p>
+          <div class="result-box">
+            <ul id="result-list">
+              <li>Melhor começar definindo curso, duração e cidade.</li>
+              <li>Depois disso, a equipe monta rota, custos e próximos documentos.</li>
+              <li>O atendimento por WhatsApp já pode seguir com uma mensagem pronta.</li>
+            </ul>
+            <a class="btn btn-primary" id="sim-wa" target="_blank" rel="noopener" href="https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20simular%20meu%20plano%20internacional.">Enviar meu briefing no WhatsApp</a>
+            <p class="small-note">Esse simulador é um preview de solução comercial para o site. Depois, se você gostar, dá para evoluir com orçamento estimado, pacotes e perguntas condicionais.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="section tight">
     <div class="container">
       <div class="section-head reveal">
@@ -471,6 +631,7 @@ p{margin:0}
     </div>
   </footer>
   
+
 <script>
 (function(){
   const preloader = document.getElementById('preloader');
@@ -495,22 +656,106 @@ p{margin:0}
   }, {threshold:.12});
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  const faqItems = document.querySelectorAll('.faq-item');
-  faqItems.forEach(item => {
+  document.querySelectorAll('.faq-item').forEach(item => {
     const btn = item.querySelector('.faq-btn');
     btn && btn.addEventListener('click', () => item.classList.toggle('open'));
   });
-})();
-</script>
 
-  
-<script>
-(function(){
   const slides = Array.from(document.querySelectorAll('.hero-slide'));
   const dots = Array.from(document.querySelectorAll('.hero-dots button'));
-  if(!slides.length) return;
+  const heroData = [
+    {
+      title:'Seu futuro não tem fronteiras.',
+      lead:'Intercâmbio, cursos e planejamento internacional com foco em Portugal, Irlanda e Estados Unidos — da passagem aérea ao suporte para estudar fora com mais segurança.',
+      cardTitle:'Intercâmbio e passagens aéreas para começar a vida acadêmica fora.',
+      cardCopy:'Quando o foco é estudar, a Global Travel organiza destino, tarifa aérea, curso e próximos passos para transformar a decisão em plano real.',
+      cta1:'Quero estudar fora',
+      cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20atendimento%20para%20interc%C3%A2mbio%20e%20cursos%20fora%20do%20pa%C3%ADs.',
+      cta2:'Ver nossos cursos',
+      cta2href:'nossos-cursos.html',
+      mini:[
+        ['Cursos','Curadoria de opções para começar com mais direção.'],
+        ['Passagens','Busca de rotas e melhores tarifas para embarcar.'],
+        ['Suporte','Orientação clara antes da decisão final.']
+      ]
+    },
+    {
+      title:'Viaje para viver experiências que ficam para sempre.',
+      lead:'Da emissão da passagem ao roteiro internacional, a Global Travel monta viagens de neve, turismo especial e experiências premium com suporte humano.',
+      cardTitle:'Passagens aéreas e viagens internacionais com atendimento mais estratégico.',
+      cardCopy:'Para viagens de neve e experiências especiais, a prioridade é combinar tarifa, destino, datas e conforto sem deixar o cliente perdido.',
+      cta1:'Quero uma viagem de neve',
+      cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20planejar%20uma%20viagem%20de%20neve%20e%20cotar%20passagens.',
+      cta2:'Ver serviços',
+      cta2href:'#servicos',
+      mini:[
+        ['Tarifas','Passagens com foco em custo-benefício e conexão.'],
+        ['Roteiro','Viagem organizada conforme seu estilo e orçamento.'],
+        ['Suporte','Atendimento próximo do orçamento ao embarque.']
+      ]
+    },
+    {
+      title:'Lisboa pode ser o começo da sua nova fase.',
+      lead:'Portugal e Lisboa aparecem como destinos fortes para quem quer estudar, se reposicionar e construir uma trajetória internacional com mais clareza.',
+      cardTitle:'Lisboa, cursos e suporte para uma jornada internacional mais bem pensada.',
+      cardCopy:'Se a ideia é Portugal, o atendimento pode unir curso, passagens aéreas e orientação prática para começar com mais segurança.',
+      cta1:'Quero estudar em Lisboa',
+      cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20estudar%20em%20Lisboa%20e%20entender%20curso%2C%20passagem%20e%20planejamento.',
+      cta2:'Explorar Portugal',
+      cta2href:'#destinos',
+      mini:[
+        ['Lisboa','Destino forte para intercâmbio e novas fases.'],
+        ['Planejamento','Curso, custos e rota organizados juntos.'],
+        ['Direção','Mais clareza para quem quer viver em Portugal.']
+      ]
+    },
+    {
+      title:'Sua viagem dos sonhos também pode começar aqui.',
+      lead:'Passagens aéreas, suporte e atendimento personalizado para Disney, Paris e viagens em família com planejamento completo e melhores tarifas.',
+      cardTitle:'Turismo internacional e pacotes pensados para viajar melhor.',
+      cardCopy:'Para viagens em família, a Global Travel pode organizar passagem, roteiro, parque, datas e atendimento mais humano do começo ao fim.',
+      cta1:'Quero um pacote Disney',
+      cta1href:'https://wa.me/351910346159?text=Ol%C3%A1%2C%20quero%20montar%20um%20pacote%20Disney%20ou%20Paris%20em%20fam%C3%ADlia.',
+      cta2:'Falar com especialista',
+      cta2href:'#contato',
+      mini:[
+        ['Família','Viagens planejadas com mais conforto e clareza.'],
+        ['Pacotes','Suporte para montar a experiência ideal.'],
+        ['Passagens','Busca de melhores tarifas e datas mais estratégicas.']
+      ]
+    }
+  ];
+  const titleEl = document.getElementById('hero-title');
+  const leadEl = document.getElementById('hero-lead');
+  const cardTitleEl = document.getElementById('hero-card-title');
+  const cardCopyEl = document.getElementById('hero-card-copy');
+  const btn1 = document.getElementById('hero-primary-btn');
+  const btn2 = document.getElementById('hero-secondary-btn');
+  const miniEls = [
+    [document.getElementById('mini-1-title'), document.getElementById('mini-1-copy')],
+    [document.getElementById('mini-2-title'), document.getElementById('mini-2-copy')],
+    [document.getElementById('mini-3-title'), document.getElementById('mini-3-copy')]
+  ];
   let current = 0;
   const videos = slides.map(s => s.querySelector('video'));
+  function paintHero(index){
+    const data = heroData[index];
+    if(!data) return;
+    titleEl.textContent = data.title;
+    leadEl.textContent = data.lead;
+    cardTitleEl.textContent = data.cardTitle;
+    cardCopyEl.textContent = data.cardCopy;
+    btn1.textContent = data.cta1;
+    btn1.href = data.cta1href;
+    btn2.textContent = data.cta2;
+    btn2.href = data.cta2href;
+    data.mini.forEach((item, i) => {
+      if(miniEls[i]){
+        miniEls[i][0].textContent = item[0];
+        miniEls[i][1].textContent = item[1];
+      }
+    });
+  }
   function activate(index){
     slides.forEach((slide,i) => {
       const active = i === index;
@@ -523,12 +768,92 @@ p{margin:0}
       }
     });
     current = index;
+    paintHero(index);
   }
   dots.forEach((dot,i) => dot.addEventListener('click', () => activate(i)));
   activate(0);
   setInterval(() => activate((current + 1) % slides.length), 6200);
+
+  const goalChoices = Array.from(document.querySelectorAll('input[name="goal"]'));
+  const goalLabels = Array.from(document.querySelectorAll('#goal-choices .choice'));
+  const destino = document.getElementById('destino');
+  const orcamento = document.getElementById('orcamento');
+  const prazo = document.getElementById('prazo');
+  const resultBadge = document.getElementById('result-badge');
+  const resultCopy = document.getElementById('result-copy');
+  const resultList = document.getElementById('result-list');
+  const simWa = document.getElementById('sim-wa');
+
+  const goalMap = {
+    estudar:'intercâmbio e cursos',
+    viajar:'viagem internacional',
+    morar:'morar fora'
+  };
+  const destinationMap = {
+    portugal:'Portugal / Lisboa',
+    irlanda:'Irlanda',
+    eua:'Estados Unidos',
+    disney:'Disney / Paris',
+    neve:'viagem de neve',
+    outro:'outro destino'
+  };
+  function updateChoiceState(){
+    goalLabels.forEach(label => {
+      const input = label.querySelector('input');
+      label.classList.toggle('active', !!input.checked);
+    });
+  }
+  function buildRecommendation(){
+    const goal = document.querySelector('input[name="goal"]:checked')?.value || 'estudar';
+    const dest = destino.value;
+    const budget = orcamento.value;
+    const when = prazo.value;
+
+    let badge = 'Perfil sugerido: ';
+    let copy = '';
+    let bullets = [];
+    if(goal === 'estudar'){
+      badge += dest === 'portugal' ? 'Intercâmbio em Lisboa' : 'Planejamento acadêmico internacional';
+      copy = dest === 'portugal'
+        ? 'Para quem quer estudar fora com idioma mais acessível e boa adaptação, Portugal e Lisboa aparecem como caminho forte.'
+        : 'O melhor primeiro passo é combinar curso, cidade, passagens aéreas e timing de aplicação.';
+      bullets = [
+        'Definir curso, duração e cidade antes de fechar o embarque.',
+        'Organizar passagens, orçamento e documentação em conjunto.',
+        'Seguir para o WhatsApp já com briefing de estudo mais claro.'
+      ];
+    } else if(goal === 'viajar'){
+      badge += dest === 'disney' ? 'Pacote Disney / Paris' : dest === 'neve' ? 'Viagem de neve com roteiro' : 'Viagem internacional personalizada';
+      copy = 'Quando o objetivo é viajar, o ideal é montar destino, datas e passagem aérea já pensando no melhor custo-benefício e no estilo da viagem.';
+      bullets = [
+        'Cotar passagens com melhores tarifas e datas mais estratégicas.',
+        'Definir hotel, roteiro e perfil da viagem antes do fechamento.',
+        'Levar o pedido pronto para o WhatsApp agiliza muito o atendimento.'
+      ];
+    } else {
+      badge += dest === 'portugal' ? 'Mudança para Portugal' : 'Plano inicial para morar fora';
+      copy = 'Projetos de imigração pedem clareza sobre país, custo inicial, prazo e próximos passos. O objetivo aqui é organizar a conversa certa desde o início.';
+      bullets = [
+        'Avaliar destino, orçamento e momento de vida antes de avançar.',
+        'Separar projeto de estudo, trabalho ou mudança definitiva.',
+        'Usar o WhatsApp para receber direcionamento mais individual.'
+      ];
+    }
+
+    resultBadge.textContent = badge;
+    resultCopy.textContent = copy;
+    resultList.innerHTML = bullets.map(item => `<li>${item}</li>`).join('');
+
+    const budgetLabel = orcamento.options[orcamento.selectedIndex].text;
+    const whenLabel = prazo.options[prazo.selectedIndex].text;
+    const msg = `Olá, usei o simulador do site. Meu objetivo é ${goalMap[goal]}, com interesse em ${destinationMap[dest]}. Meu orçamento estimado é ${budgetLabel} e pretendo começar ${whenLabel}. Quero receber orientação da Global Travel.`;
+    simWa.href = 'https://wa.me/351910346159?text=' + encodeURIComponent(msg);
+  }
+  goalChoices.forEach(input => input.addEventListener('change', () => {updateChoiceState(); buildRecommendation();}));
+  [destino, orcamento, prazo].forEach(el => el && el.addEventListener('change', buildRecommendation));
+  updateChoiceState();
+  buildRecommendation();
 })();
 </script>
-
 </body>
 </html>
