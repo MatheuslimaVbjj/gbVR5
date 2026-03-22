@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulador • Global Travel Intercâmbios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040d16; --bg2:#07111c; --panel:rgba(7,17,28,.82); --card:rgba(255,255,255,.04);
+  --line:rgba(255,255,255,.08); --text:#f6f7fb; --muted:rgba(246,247,251,.76);
+  --gold:#d7ae61; --shadow:0 18px 60px rgba(0,0,0,.30); --ease:cubic-bezier(.22,.65,.2,1);
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--text); font-family:Inter,system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(circle at top left, rgba(16,47,82,.45), transparent 30%),
+    radial-gradient(circle at top right, rgba(38,64,100,.26), transparent 26%),
+    linear-gradient(180deg,#04111c 0%, #06101a 100%);
+}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px, calc(100% - 40px));margin:0 auto}
+.site-header{position:sticky;top:0;z-index:40;background:rgba(4,11,18,.65);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-shell{min-height:86px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand-logo{width:250px;display:block}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-weight:700;color:#f7f7f7d0}
+.nav-links a.active{color:#fff}
+.nav-cta{display:flex;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 22px;border-radius:999px;border:1px solid transparent;font-weight:800;transition:.28s var(--ease);cursor:pointer}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:linear-gradient(135deg,var(--gold),#edc979);color:#10203a;box-shadow:0 12px 28px rgba(215,174,97,.25)}
+.btn-secondary{background:rgba(255,255,255,.03);border-color:var(--line);color:#fff}
+.burger{display:none;background:none;border:none;color:#fff;font-size:28px}
+.mobile-panel{display:none}
+.hero{padding:70px 0 36px}
+.kicker{display:inline-flex;align-items:center;gap:12px;letter-spacing:3px;text-transform:uppercase;color:#fff;font-size:12px;font-weight:700}
+.kicker:before{content:"";width:54px;height:1px;background:var(--gold)}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:26px;align-items:end}
+.hero-copy h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(3.1rem,7vw,5.8rem);line-height:.9;margin:18px 0}
+.lead{font-size:clamp(1.05rem,2vw,1.28rem);line-height:1.75;color:var(--muted);max-width:760px}
+.glass,.sim-card,.result-box,.mini-card,.tip-card{
+  background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.025));
+  border:1px solid var(--line); border-radius:28px; box-shadow:var(--shadow); backdrop-filter:blur(10px)
+}
+.glass{padding:28px}
+.hero-side{padding:28px}
+.hero-side strong{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.05}
+.hero-side p{margin:14px 0 0;color:var(--muted);line-height:1.7}
+.section{padding:38px 0 88px}
+.section-head{max-width:780px;margin-bottom:28px}
+.section-head h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2.5rem,5vw,4.2rem);line-height:.95;margin:16px 0}
+.copy{line-height:1.75;color:var(--muted)}
+.tabs{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px}
+.tab{
+  padding:12px 18px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);
+  color:#fff;font-weight:800;cursor:pointer;transition:.25s var(--ease)
+}
+.tab.active{background:linear-gradient(135deg,var(--gold),#efcb7b);color:#10203a;border-color:transparent}
+.sim-layout{display:grid;grid-template-columns:1.05fr .95fr;gap:22px}
+.sim-card{padding:26px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field label{display:block;margin-bottom:8px;font-weight:700}
+.field select,.field input{
+  width:100%;padding:14px 14px;border-radius:16px;border:1px solid var(--line);
+  background:rgba(255,255,255,.04);color:#fff;font:inherit
+}
+.field option{color:#111}
+.result-box{padding:24px}
+.result-box h3{margin:0 0 12px;font-size:1.5rem}
+.result-price{font-family:"Cormorant Garamond",Georgia,serif;font-size:clamp(2.8rem,5vw,4.3rem);line-height:.95;margin:8px 0 10px}
+.result-list{display:grid;gap:10px;margin:18px 0}
+.result-list div{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.03);border:1px solid var(--line)}
+.small-note{font-size:.95rem;color:var(--muted);line-height:1.65}
+.tips-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+.tip-card{padding:22px}
+.tip-card h3{margin:0 0 10px;font-size:1.35rem}
+.tip-card p{margin:0;color:var(--muted);line-height:1.7}
+.cta-band{margin-top:28px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+footer{padding:40px 0 74px;border-top:1px solid var(--line)}
+.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:26px}
+.floating-wa{position:fixed;right:18px;bottom:18px;z-index:39;background:#25D366;color:#fff;padding:0 18px;min-height:58px;border-radius:999px;display:inline-flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(37,211,102,.32)}
+.reveal{opacity:0;transform:translateY(20px);transition:.7s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+@media (max-width:1080px){
+  .hero-grid,.sim-layout,.footer-grid{grid-template-columns:1fr}
+  .tips-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:860px){
+  .nav-links,.nav-cta .btn{display:none}
+  .burger{display:grid;place-items:center}
+  .mobile-panel{display:grid;position:fixed;left:20px;right:20px;top:86px;padding:20px;border-radius:24px;background:rgba(5,11,18,.96);border:1px solid rgba(255,255,255,.08);box-shadow:var(--shadow);gap:14px;opacity:0;pointer-events:none;transform:translateY(-12px);transition:.28s var(--ease);z-index:998}
+  body.nav-open .mobile-panel{opacity:1;pointer-events:auto;transform:none}
+  .mobile-panel a{padding:8px 4px;color:#fff}
+}
+@media (max-width:700px){
+  .container{width:min(1180px, calc(100% - 24px))}
+  .form-grid,.tips-grid{grid-template-columns:1fr}
+  .hero-copy h1,.section-head h2{font-size:clamp(2.7rem,13vw,4.2rem)}
+  .brand-logo{width:220px}
+  .cta-band{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="container nav-shell">
+    <a href="index.html" aria-label="Global Travel Intercâmbios"><img class="brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios"></a>
+    <nav class="nav-links" aria-label="Principal">
+      <a href="index.html#servicos">Serviços</a>
+      <a href="index.html#destinos">Destinos</a>
+      <a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a>
+      <a href="nossos-cursos.html">Nossos cursos</a>
+      <a class="active" href="simulador.html">Simulador</a>
+      <a href="index.html#contato">Contato</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="https://wa.me/351910346159" target="_blank" rel="noopener">WhatsApp</a>
+      <button class="burger" id="burger" aria-label="Abrir menu">☰</button>
+    </div>
+  </div>
+  <div class="mobile-panel">
+    <a href="index.html#servicos">Serviços</a>
+    <a href="index.html#destinos">Destinos</a>
+    <a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a>
+    <a href="nossos-cursos.html">Nossos cursos</a>
+    <a href="simulador.html">Simulador</a>
+    <a href="index.html#contato">Contato</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy reveal">
+        <span class="kicker">Nova aba de simulador</span>
+        <h1>Simule viagens, passagens, intercâmbio e mestrado em um só lugar.</h1>
+        <p class="lead">Criamos uma página dedicada para dar mais espaço ao que já vinha funcionando na home: fazer o visitante simular cenários reais, entender faixa de investimento, prazo e mandar um pedido muito mais claro para o WhatsApp.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:24px">
+          <a class="btn btn-primary" href="#painel">Começar simulação</a>
+          <a class="btn btn-secondary" href="https://wa.me/351910346159?text=Olá,%20quero%20atendimento%20para%20simular%20meu%20plano%20internacional." target="_blank" rel="noopener">Falar direto no WhatsApp</a>
+        </div>
+      </div>
+      <aside class="glass hero-side reveal">
+        <strong>Uma aba feita para transformar curiosidade em lead qualificado.</strong>
+        <p>Aqui a pessoa consegue visualizar cenários para turismo, passagens, intercâmbio de inglês, cursos e mestrado. Não é orçamento final: é um ponto de partida comercial que deixa o cliente mais orientado e o atendimento mais certeiro.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="painel">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">Painel de simulação</span>
+        <h2>Escolha o tipo de projeto e veja uma faixa inicial para começar a conversa.</h2>
+        <p class="copy">A estrutura abaixo é pensada como ferramenta comercial: simples para o usuário, útil para o negócio e com mensagem pronta para WhatsApp já contextualizada.</p>
+      </div>
+
+      <div class="tabs reveal" id="tabs">
+        <button class="tab active" data-type="viagem">Viagem internacional</button>
+        <button class="tab" data-type="passagem">Passagens aéreas</button>
+        <button class="tab" data-type="ingles">Intercâmbio de inglês</button>
+        <button class="tab" data-type="mestrado">Mestrado / estudos</button>
+      </div>
+
+      <div class="sim-layout">
+        <div class="sim-card reveal">
+          <div class="form-grid">
+            <div class="field">
+              <label for="destino">Destino</label>
+              <select id="destino">
+                <option value="lisboa">Lisboa / Portugal</option>
+                <option value="irlanda">Irlanda</option>
+                <option value="eua">Estados Unidos</option>
+                <option value="disney">Disney / Paris</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="duracao">Duração / prazo</label>
+              <select id="duracao">
+                <option value="7">7 dias / curto prazo</option>
+                <option value="15">15 dias / duas semanas</option>
+                <option value="30">30 dias / 1 mês</option>
+                <option value="90">90 dias / 3 meses</option>
+                <option value="180">180 dias / 6 meses</option>
+                <option value="365">1 ano</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="perfil">Perfil</label>
+              <select id="perfil">
+                <option value="solo">Sozinho</option>
+                <option value="casal">Casal</option>
+                <option value="familia">Família</option>
+                <option value="estudante">Estudante</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="orcamento">Faixa de orçamento</label>
+              <select id="orcamento">
+                <option value="baixo">Mais econômico</option>
+                <option value="medio">Intermediário</option>
+                <option value="alto">Mais confortável</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="cta-band glass" style="margin-top:18px">
+            <div>
+              <strong style="display:block;font-size:1.2rem;margin-bottom:8px">Quer um atalho ainda mais rápido?</strong>
+              <p class="small-note" style="margin:0">O botão abaixo já leva a simulação com todos os dados preenchidos para o atendimento no WhatsApp.</p>
+            </div>
+            <a class="btn btn-primary" id="whatsBtn" target="_blank" rel="noopener" href="#">Levar para o WhatsApp</a>
+          </div>
+        </div>
+
+        <div class="result-box reveal">
+          <h3 id="resultTitle">Viagem internacional</h3>
+          <div class="result-price" id="resultPrice">€ 1.200 – € 2.100</div>
+          <p class="copy" id="resultCopy">Faixa inicial para uma viagem com passagem e estrutura básica, pensada como referência comercial para o primeiro atendimento.</p>
+
+          <div class="result-list" id="resultList">
+            <div>Passagem estimada incluída na faixa</div>
+            <div>Possível ajuste conforme antecedência e temporada</div>
+            <div>Recomendado conversar com especialista para rota e hospedagem</div>
+          </div>
+
+          <p class="small-note">Os valores são apenas estimativas comerciais iniciais para facilitar a tomada de decisão e qualificar o primeiro contato. Orçamento final depende de datas, emissão, disponibilidade, tipo de curso e perfil do cliente.</p>
+        </div>
+      </div>
+
+      <div class="tips-grid">
+        <div class="tip-card reveal">
+          <h3>Viagem internacional</h3>
+          <p>Ótimo para turismo, Disney, neve, casal ou família. Pode servir para estimar pacote ou viagem com passagem e hospedagem.</p>
+        </div>
+        <div class="tip-card reveal">
+          <h3>Passagens aéreas</h3>
+          <p>Funciona como triagem comercial de rota, antecedência e faixa de orçamento para emissão com as melhores tarifas.</p>
+        </div>
+        <div class="tip-card reveal">
+          <h3>Intercâmbio e mestrado</h3>
+          <p>Ajuda a introduzir investimento inicial em inglês, cursos e estudos mais longos, sem travar o cliente com informação demais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container footer-grid">
+    <div>
+      <img class="brand-logo" src="globaltravel_logo_original_white_v16.png" alt="Global Travel Intercâmbios">
+      <p class="copy" style="max-width:520px">A página de simulador pode evoluir depois com perguntas condicionais, pacotes fechados, captação de lead e até um comparador de cenários por destino.</p>
+    </div>
+    <div>
+      <strong>Contato</strong>
+      <p class="copy">WhatsApp: +351 910 346 159</p>
+      <p class="copy">globaltravelintracambios@gmail.com</p>
+    </div>
+    <div>
+      <strong>Navegação</strong>
+      <p><a href="index.html">Home</a></p>
+      <p><a href="nossos-cursos.html">Nossos cursos</a></p>
+      <p><a href="trabalhar-morar-fora.html">Trabalhar e morar fora</a></p>
+    </div>
+  </div>
+</footer>
+
+<a class="floating-wa" href="https://wa.me/351910346159?text=Olá,%20quero%20falar%20com%20a%20Global%20Travel." target="_blank" rel="noopener">WhatsApp</a>
+
+<script>
+const burger = document.getElementById('burger');
+burger?.addEventListener('click', ()=> document.body.classList.toggle('nav-open'));
+
+const typeLabels = {
+  viagem:'Viagem internacional',
+  passagem:'Passagens aéreas',
+  ingles:'Intercâmbio de inglês',
+  mestrado:'Mestrado / estudos'
+};
+
+const copyByType = {
+  viagem:'Faixa inicial para viagem com passagem e estrutura básica, pensada como referência comercial para o primeiro atendimento.',
+  passagem:'Faixa estimada de emissão aérea de acordo com destino, antecedência, conforto e período da viagem.',
+  ingles:'Faixa comercial inicial para programa de inglês com duração e país como referência para o primeiro direcionamento.',
+  mestrado:'Faixa inicial considerando candidatura, instituição e estrutura geral do projeto acadêmico para começar a conversa.'
+};
+
+function euroRange(min, max){
+  return `€ ${min.toLocaleString('pt-PT')} – € ${max.toLocaleString('pt-PT')}`;
+}
+
+function calcEstimate(type, destino, duracao, perfil, orcamento){
+  let base = 0;
+  const d = Number(duracao);
+
+  const destinationBase = {
+    lisboa: {viagem:900, passagem:280, ingles:1800, mestrado:3500},
+    irlanda:{viagem:1100, passagem:320, ingles:2500, mestrado:4200},
+    eua:    {viagem:1500, passagem:550, ingles:3800, mestrado:6500},
+    disney: {viagem:1700, passagem:650, ingles:0,    mestrado:0}
+  };
+
+  base = destinationBase[destino][type] || 1200;
+
+  const durationFactor = {7:1,15:1.2,30:1.5,90:2.4,180:3.8,365:6.2}[d] || 1;
+  const profileFactor = {solo:1,casal:1.7,familia:2.4,estudante:1.05}[perfil] || 1;
+  const comfortFactor = {baixo:1,medio:1.22,alto:1.5}[orcamento] || 1;
+
+  let min = Math.round(base * durationFactor * profileFactor * (comfortFactor*0.88));
+  let max = Math.round(base * durationFactor * profileFactor * (comfortFactor*1.18));
+
+  if(type === 'passagem'){
+    min = Math.round(base * profileFactor * (comfortFactor*0.95));
+    max = Math.round(base * profileFactor * (comfortFactor*1.35));
+  }
+
+  return [min, max];
+}
+
+const tabs = [...document.querySelectorAll('.tab')];
+let currentType = 'viagem';
+const els = {
+  destino: document.getElementById('destino'),
+  duracao: document.getElementById('duracao'),
+  perfil: document.getElementById('perfil'),
+  orcamento: document.getElementById('orcamento'),
+  resultTitle: document.getElementById('resultTitle'),
+  resultPrice: document.getElementById('resultPrice'),
+  resultCopy: document.getElementById('resultCopy'),
+  resultList: document.getElementById('resultList'),
+  whatsBtn: document.getElementById('whatsBtn'),
+};
+
+function updateOptionsByType(){
+  const disneyOption = [...els.destino.options].find(opt => opt.value === 'disney');
+  if(currentType === 'ingles' || currentType === 'mestrado'){
+    disneyOption.disabled = true;
+    if(els.destino.value === 'disney') els.destino.value = 'lisboa';
+  } else {
+    disneyOption.disabled = false;
+  }
+}
+
+function updateResult(){
+  updateOptionsByType();
+  const destino = els.destino.value, duracao = els.duracao.value, perfil = els.perfil.value, orcamento = els.orcamento.value;
+  const [min,max] = calcEstimate(currentType, destino, duracao, perfil, orcamento);
+  const title = typeLabels[currentType];
+  els.resultTitle.textContent = title;
+  els.resultPrice.textContent = euroRange(min,max);
+  els.resultCopy.textContent = copyByType[currentType];
+
+  let bullets = [];
+  if(currentType === 'viagem'){
+    bullets = ['Faixa com passagem e base de organização', 'Pode variar conforme temporada, hotel e número de pessoas', 'Ideal para iniciar cotação de viagem ou pacote'];
+  } else if(currentType === 'passagem'){
+    bullets = ['Foco em rota, antecedência e classe', 'Oscila conforme emissão e disponibilidade', 'Perfeito para gerar cotação rápida no WhatsApp'];
+  } else if(currentType === 'ingles'){
+    bullets = ['Referência para curso + estrutura inicial', 'Pode subir conforme duração e país escolhido', 'Ótimo para lead de intercâmbio com mais contexto'];
+  } else {
+    bullets = ['Referência para estudos mais avançados', 'Valores variam por instituição e candidatura', 'Serve para começar conversa com cenário mais realista'];
+  }
+  els.resultList.innerHTML = bullets.map(item => `<div>${item}</div>`).join('');
+
+  const msg = `Olá, fiz uma simulação no site.%0A%0ATipo: ${title}%0ADestino: ${els.destino.options[els.destino.selectedIndex].text}%0ADuração/Prazo: ${els.duracao.options[els.duracao.selectedIndex].text}%0APerfil: ${els.perfil.options[els.perfil.selectedIndex].text}%0AOrçamento: ${els.orcamento.options[els.orcamento.selectedIndex].text}%0AFaixa estimada: ${euroRange(min,max)}%0A%0AQuero atendimento da Global Travel.`;
+  els.whatsBtn.href = `https://wa.me/351910346159?text=${msg}`;
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', ()=>{
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    currentType = tab.dataset.type;
+    updateResult();
+  });
+});
+
+['destino','duracao','perfil','orcamento'].forEach(id => els[id].addEventListener('change', updateResult));
+updateResult();
+
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); });
+},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
